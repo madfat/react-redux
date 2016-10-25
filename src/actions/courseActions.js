@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import courseAPI from '../api/mockCourseApi';
 import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
+import axios from 'axios';
 
 export function loadCoursesSuccess(courses) {
     return {type: types.LOAD_COURSES_SUCCESS, courses};
@@ -17,11 +18,22 @@ export function updateCourseSuccess(course) {
 export function loadCourses(){
     return function(dispatch){
         dispatch(beginAjaxCall());
-        return courseAPI.getAllCourses().then(courses =>{
-            dispatch(loadCoursesSuccess(courses));
-        }).catch(error => {
+        return axios.get('http://localhost:8080/api/courses')
+          .then(function(response){
+            console.log(response);
+            const extracted_courses = response["data"];
+            dispatch(loadCoursesSuccess(extracted_courses));
+          })
+          .catch(function(error){
+            console.log(error);
             throw(error);
-        });
+          });
+        // return courseAPI.getAllCourses().then(courses =>{
+        //     dispatch(loadCoursesSuccess(courses));
+        // }).catch(error => {
+        //     throw(error);
+        // });
+
     };
 }
 
