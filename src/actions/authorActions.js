@@ -12,8 +12,7 @@ export function loadAuthors(){
         dispatch(beginAjaxCall());
         return axios.get('http://localhost:8080/api/authors')
         .then(function(response){
-          const extracted_authors = response["data"]["_embedded"]["authors"];
-          dispatch(loadAuthorsSuccess(extracted_authors));
+          dispatch(loadAuthorsSuccess(response));
         })
         .catch(function(error){
           console.log(error);

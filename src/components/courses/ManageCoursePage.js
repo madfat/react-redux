@@ -44,7 +44,6 @@ class ManageCoursePage extends React.Component{
     }
 
     redirect(){
-        console.log('satu '+ this.state.course.id);
         this.setState({saving: false});
         toastr.success('Course saved');
         this.context.router.push('/courses');
@@ -86,13 +85,13 @@ function getCourseById(courses, id){
 function mapStateToProps(state, ownProps){
     const courseId = ownProps.params.id;
 
-    let course = {id: '', watchHref: '', title: '', authorId: '', length: '', category: ''};
+    let course = {id: '', title: '', authorId: '', length: '', category: ''};
 
     if (courseId && state.courses.length > 0){
         course = getCourseById(state.courses, courseId);
     }
 
-    const authorsFormattedForDropdown = state.authors.map((author) => {
+    const authorsFormattedForDropdown = state.authors.data.map((author) => {
         return {
             value: author.id,
             text: author.firstName + ' ' + author.lastName
