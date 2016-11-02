@@ -2,6 +2,7 @@ import * as types from './actionTypes';
 import courseAPI from '../api/mockCourseApi';
 import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 import axios from 'axios';
+import * as paths from './paths';
 
 export function loadCoursesSuccess(courses) {
     return {type: types.LOAD_COURSES_SUCCESS, courses};
@@ -15,10 +16,14 @@ export function updateCourseSuccess(course) {
     return {type: types.UPDATE_COURSE_SUCCESS, course};
 }
 
+export function deleteCourseSuccess(course) {
+    return {type: types.DELETE_COURSE_SUCCESS, course};
+}
+
 export function loadCourses(){
     return function(dispatch){
         dispatch(beginAjaxCall());
-        return axios.get('http://localhost:8080/api/courses')
+        return axios.get(paths.API + '/courses')
           .then(function(response){
             console.log(response);
             const extracted_courses = response["data"];
@@ -42,7 +47,7 @@ export function saveCourse(course){
 
     return function(dispatch, getState){
         dispatch(beginAjaxCall());
-        return axios.post('http://localhost:8080/api/courses', course)
+        return axios.post(paths.API + '/courses', course)
           .then((savedCourse) => {
               console.log(savedCourse["data"]["result"]);
               const extracted_savedCourse = savedCourse["data"]["result"];
@@ -51,14 +56,20 @@ export function saveCourse(course){
           .catch((error) =>{
               dispatch(ajaxCallError(error));
           });
+    };
+}
 
-        // return courseAPI.saveCourse(course).then(savedCourse =>{
-        //     console.log('dua ' + savedCourse.id);
-        //     course.id ? dispatch(updateCourseSuccess(savedCourse)) : dispatch(createCourseSuccess(savedCourse));
-        //     console.log('tiga ' + savedCourse.id);
-        // }).catch(error => {
-        //     dispatch(ajaxCallError(error));
-        //     throw(error);
-        // });
+export function deleteCourse(course) {
+    console.log(course);
+    return function (dispatch, getState) {
+        dispatch (beginAjaxCall());
+        return axios.delete(paths.API + '/courses', course)
+          .then((course) => {
+              console.log('course id: ' + course.id + ' just deleted');
+              dispatch(deleteCourseSuccess(course));
+          })
+          .catch((error) => {
+              dispatch(ajaxCallError(error));
+          });
     };
 }

@@ -1,10 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Pluralsight Admin</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script src="/bundle.js"></script>
-  </body>
+
+<head>
+	<title>Pluralsight Admin</title>
+</head>
+
+<body>
+	<div id="app"></div>
+	<script src="/bundle.js"></script>
+	<script>
+        console.log('test');
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js', {scope: '/'})
+            .then(e => { 
+                if (e.installing) {
+                    console.log('installing');
+                } else if (e.waiting) {
+                    console.log('installed');
+                } else if (e.active) {
+                    console.log('active');
+                }
+            })
+            .catch(error => {
+                console.log('error registering sw: ' + error);
+            });
+        }
+    </script>
+</body>
+
 </html>
