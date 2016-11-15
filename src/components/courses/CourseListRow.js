@@ -1,20 +1,44 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
+import * as courseActions from '../../actions/courseActions';
+import {bindActionCreators} from 'redux';
+import{connect} from 'react-redux';
 
-const CourseListRow = ({course}) => {
-    const author = course.author;
-    return (
-        <tr>
-            <td><Link to={'/course/' + course.id}>{course.title}</Link></td>
-            <td>{course.authorId}</td>
-            <td>{course.category}</td>
-            <td>{course.length}</td>
-        </tr>
-    );
-};
+class CourseListRow extends React.Component {
+	 constructor(props, context){
+	        super(props, context);
+	        this.handleDelete = this.handleDelete.bind(this);
+	 }
 
-CourseListRow.propTypes = {
-    course: PropTypes.object.isRequired
-};
+	handleDelete(e){
+        e.preventDefault();
+        this.props.action.deleteCourse(this.props.course.id);
+	}
 
-export default CourseListRow;
+    render(){
+        const course = this.props.course;
+        return (
+            <tr>
+                <td><Link to={'/course/' + course.id}>{course.title}</Link></td>
+                <td>{course.authorId}</td>
+                <td>{course.category}</td>
+                <td>{course.length}</td>
+                <td><button onClick={this.handleDelete} type="button" className="btn btn-success">Delete</button></td>
+            </tr>            
+        );
+    }
+}
+
+function mapStateToProps(state, ownProp){
+    return {
+        loading: state.ajaxCallsInProgress > 0
+    };
+}
+
+function mapDispatchToProps(dispatch){
+    return {
+        action: bindActionCreators(courseActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CourseListRow);

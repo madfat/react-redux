@@ -15,6 +15,10 @@ export function updateCourseSuccess(course) {
     return {type: types.UPDATE_COURSE_SUCCESS, course};
 }
 
+export function deleteCourseSuccess(course) {
+    return {type: types.DELETE_COURSE_SUCCESS, course};
+}
+
 export function loadCourses(){
     return function(dispatch){
         dispatch(beginAjaxCall());
@@ -49,6 +53,21 @@ export function saveCourse(course){
               course.id == "" ? dispatch(createCourseSuccess(extracted_savedCourse)) : dispatch(updateCourseSuccess(extracted_savedCourse));
           })
           .catch((error) =>{
+              dispatch(ajaxCallError(error));
+          });
+    };
+}
+
+export function deleteCourse(id) {
+    console.log(id);
+    return function (dispatch, getState) {
+        dispatch (beginAjaxCall());
+        return axios.delete('http://localhost:8080/api/courses/'+ id)
+          .then((course) => {
+              console.log('course id: ' + course.id + ' just deleted');
+              dispatch(deleteCourseSuccess(course["data"]));
+          })
+          .catch((error) => {
               dispatch(ajaxCallError(error));
           });
     };
