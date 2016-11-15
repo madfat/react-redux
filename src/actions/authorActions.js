@@ -2,7 +2,6 @@ import * as types from './actionTypes';
 import courseAPI from '../api/mockAuthorApi';
 import {beginAjaxCall} from './ajaxStatusActions';
 import axios from 'axios';
-import * as paths from './paths';
 
 export function loadAuthorsSuccess(authors) {
     return {type: types.LOAD_AUTHORS_SUCCESS, authors};
@@ -11,7 +10,7 @@ export function loadAuthorsSuccess(authors) {
 export function loadAuthors(){
     return function(dispatch){
         dispatch(beginAjaxCall());
-        return axios.get(paths.API + '/authors')
+        return axios.get('http://localhost:8080/api/authors')
         .then(function(response){
           dispatch(loadAuthorsSuccess(response));
         })
