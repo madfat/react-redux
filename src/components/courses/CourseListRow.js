@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import * as courseActions from '../../actions/courseActions';
 import {bindActionCreators} from 'redux';
 import{connect} from 'react-redux';
+import toastr from 'toastr';
 
 class CourseListRow extends React.Component {
 	 constructor(props, context){
@@ -12,7 +13,13 @@ class CourseListRow extends React.Component {
 
 	handleDelete(e){
         e.preventDefault();
-        this.props.action.deleteCourse(this.props.course.id);
+        this.props.action.deleteCourse(this.props.course.id)
+            .then(() => {
+                toastr.success('Course deleted');
+            })
+            .catch((error) => {
+                toastr.error(error);
+            });
 	}
 
     render(){
