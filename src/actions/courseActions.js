@@ -64,8 +64,9 @@ export function deleteCourse(id) {
         dispatch (beginAjaxCall());
         return axios.delete('http://localhost:8080/api/courses/'+ id)
           .then((course) => {
-              console.log('course id: ' + course.id + ' just deleted');
-              dispatch(deleteCourseSuccess(course["data"]));
+              const extractedCourse = course["data"];
+              console.log('course id: ' + extractedCourse.id + ' just deleted');
+              dispatch(deleteCourseSuccess(extractedCourse));
           })
           .catch((error) => {
               dispatch(ajaxCallError(error));

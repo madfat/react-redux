@@ -8,7 +8,9 @@ export default {
   entry: [
     'eventsource-polyfill', // necessary for hot reloading with IE
     'webpack-hot-middleware/client?reload=true', //note that it reloads the page if hot module reloading fails.
-    path.resolve(__dirname, 'src/index')
+    // 'webpack-dev-server/client?http://localhost:3000',
+    // "webpack/hot/only-dev-server",
+    path.resolve(__dirname, 'index')
   ],
   target: 'web',
   output: {
@@ -26,6 +28,9 @@ export default {
   module: {
     loaders: [
       {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
+      {test: /\.js$/, include: path.join(__dirname, 'index'), loaders: ['babel']},
+      {test: /\.js$/, include: path.join(__dirname, 'routes'), loaders: ['babel']},
+      {test: /\.js$/, include: path.join(__dirname, 'sw'), loaders: ['babel']},
       {test: /(\.css)$/, loaders: ['style', 'css']},
       {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
       {test: /\.(woff|woff2)$/, loader: 'url?prefix=font/&limit=5000'},

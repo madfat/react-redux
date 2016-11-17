@@ -1,10 +1,10 @@
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
-import App from './components/App';
-import AboutPage from './components/about/AboutPage';
-import HomePage from './components/home/HomePage';
-import CoursesPage from './components/courses/CoursesPage';
-import ManageCoursePage from './components/courses/ManageCoursePage';
+import App from './src/components/App';
+import AboutPage from './src/components/about/AboutPage';
+import HomePage from './src/components/home/HomePage';
+import CoursesPage from './src/components/courses/CoursesPage';
+import ManageCoursePage from './src/components/courses/ManageCoursePage';
 
 export default (
     <Route path="/" component={App}>

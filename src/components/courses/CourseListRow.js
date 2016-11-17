@@ -6,10 +6,10 @@ import{connect} from 'react-redux';
 import toastr from 'toastr';
 
 class CourseListRow extends React.Component {
-	 constructor(props, context){
-	        super(props, context);
-	        this.handleDelete = this.handleDelete.bind(this);
-	 }
+    constructor(props, context){
+        super(props, context);
+        this.handleDelete = this.handleDelete.bind(this);
+    }
 
 	handleDelete(e){
         e.preventDefault();
@@ -35,6 +35,11 @@ class CourseListRow extends React.Component {
         );
     }
 }
+
+CourseListRow.propTypes = {
+    course: PropTypes.object.isRequired,
+    action: PropTypes.object.isRequired
+};
 
 function mapStateToProps(state, ownProp){
     return {
