@@ -28,7 +28,7 @@ class CoursesPage extends React.Component{
                 <input
                     type="submit"
                     value="Add Course"
-                    className="btn btn-primary"
+                    className="btn btn-primary btn-sm"
                     onClick={this.redirecToAddCoursePage}
                 />
                 <CourseList courses={courses} />

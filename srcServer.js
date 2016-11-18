@@ -1,7 +1,7 @@
 import express from 'express';
 import webpack from 'webpack';
 import path from 'path';
-import config from '../webpack.config.dev';
+import config from './webpack.config.dev';
 import open from 'open';
 import http from 'http';
 
@@ -22,23 +22,19 @@ app.use(require('webpack-hot-middleware')(compiler));
 
 app.get('*', function(req, res) {
   console.log(__dirname);
-  res.sendFile(path.join(__dirname,'../index.html'));
+  res.sendFile(path.join(__dirname,'./index.html'));
 });
 
-app.get('../sw.js', function(req, res) { 
-  if(path.extname('sw.js') == '.js'){ 
+// need to add these for service worker
+app.use(express.static(__dirname + '/'));
+
+app.get('/ServiceWorker.js', function(req, res) { 
+  if(path.extname('ServiceWorker.js') == '.js'){ 
     res.setHeader('content-type', 'application/javascript'); 
   } 
-  res.sendFile(path.join(__dirname, '../sw.js')); 
+  res.sendFile(path.join(__dirname, 'ServiceWorker.js')); 
 });
-
-// app.listen(port, function(err) {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     open(`http://localhost:${port}`);
-//   }
-// });
+// end here for service worker
 
 const httpServer = http.createServer(app);
 httpServer.listen(port);

@@ -5,6 +5,7 @@ import AboutPage from './src/components/about/AboutPage';
 import HomePage from './src/components/home/HomePage';
 import CoursesPage from './src/components/courses/CoursesPage';
 import ManageCoursePage from './src/components/courses/ManageCoursePage';
+import ServiceWorker from './ServiceWorker';
 
 export default (
     <Route path="/" component={App}>

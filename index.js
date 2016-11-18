@@ -10,6 +10,9 @@ import {loadAuthors} from './src/actions/authorActions';
 import './src/styles/styles.css';
 import './node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './node_modules/toastr/build/toastr.min.css';
+import './ServiceWorker.js';
+import './checkSW';
+
 
 const store = configureStore();
 store.dispatch(loadCourses());

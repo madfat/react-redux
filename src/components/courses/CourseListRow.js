@@ -30,7 +30,7 @@ class CourseListRow extends React.Component {
                 <td>{course.authorId}</td>
                 <td>{course.category}</td>
                 <td>{course.length}</td>
-                <td><button onClick={this.handleDelete} type="button" className="btn btn-success">Delete</button></td>
+                <td><button onClick={this.handleDelete} type="button" className="btn btn-success btn-sm">Delete</button></td>
             </tr>            
         );
     }
